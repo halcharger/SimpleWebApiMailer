@@ -1,26 +1,23 @@
-﻿using System;
-using System.Net.Http;
+﻿using System.Net.Http;
 using System.Web.Http;
 
 namespace WebApiRole
 {
     public class TestController : ApiController
     {
-        public HttpResponseMessage Get()
+        [HttpGet]
+        [Route("api/send")]
+        public IHttpActionResult SendEmail()
         {
-            return new HttpResponseMessage()
-            {
-                Content = new StringContent("Hello from OWIN!")
-            };
+            return Ok(new StringContent("boom!!!"));
         }
+    }
 
-        public HttpResponseMessage Get(int id)
-        {
-            string msg = String.Format("Hello from OWIN (id = {0})", id);
-            return new HttpResponseMessage()
-            {
-                Content = new StringContent(msg)
-            };
-        }
+    public class Email
+    {
+        public string Subject { get; set; }
+        public string Body { get; set; }
+        public string From { get; set; }
+        public string To { get; set; }
     }
 }

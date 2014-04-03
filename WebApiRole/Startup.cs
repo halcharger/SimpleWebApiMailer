@@ -1,4 +1,5 @@
-﻿using Owin;
+﻿using Microsoft.Owin.Cors;
+using Owin;
 using System.Web.Http;
 
 namespace WebApiRole
@@ -7,13 +8,14 @@ namespace WebApiRole
     {
         public void Configuration(IAppBuilder app)
         {
-            HttpConfiguration config = new HttpConfiguration();
-            config.Routes.MapHttpRoute(
-                "Default",
-                "{controller}/{id}",
-                new { id = RouteParameter.Optional });
+            var config = new HttpConfiguration();
+            config.MapHttpAttributeRoutes();
+            config.EnsureInitialized();
 
-            app.UseWebApi(config);
+            app
+                .UseCors(CorsOptions.AllowAll)
+                .UseWelcomePage("/test")
+                .UseWebApi(config);
         }
     }
 }
