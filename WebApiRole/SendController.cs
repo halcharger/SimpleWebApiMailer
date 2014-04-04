@@ -20,7 +20,7 @@ namespace WebApiRole
         {
             Console.WriteLine("Received email send request for: ".Append(email == null ? "<NULL>" : email.ToString()));
 
-            var body = "Sent from: ".Append(email.From).Append(Environment.NewLine).Append(email.Body);
+            var body = "Sent from: ".Append(email.From).Append(Environment.NewLine).Append(Environment.NewLine).Append(email.Body);
 
             var msg = new MailMessage(From, email.To) {Subject = email.Subject, Body = body};
             using (var smtp = new SmtpClient())
